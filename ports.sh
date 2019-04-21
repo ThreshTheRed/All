@@ -1,0 +1,1 @@
+/root/skrypty/ports.sh
