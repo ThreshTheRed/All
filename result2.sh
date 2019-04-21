@@ -1,9 +1,12 @@
 #!/bin/bash
+# Check if given service is running or not
+
+[ $# -eq 0 ] && { echo "Usage: $0 service_name"; exit 1; }
 
 sctl_status=`systemctl status $1 | grep -o 'running'`
 result=$(echo $sctl_status)
 if [[ "$result" = "running" ]];then
-	echo "Dziala"
+	echo "It works!"
 else
-	echo "Nie dziala"
+	echo "It doesn't work..."
 fi
