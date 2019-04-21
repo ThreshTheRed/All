@@ -5,4 +5,4 @@ ENG:
 Repo with some random bash scripts, useful for server menaging.
 
 PL:
-Repozytorium z różnymi skryptami w bash, pomocnymi w zarządzaniu serwerem.
+Repozytorium z różnymi skryptami w bash, pomocnymi w zarządzaniu hostem.
