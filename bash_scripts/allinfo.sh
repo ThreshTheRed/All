@@ -1,22 +1,26 @@
 #!/bin/bash
 # List total info about your system
 
-echo -e "1 - system info\n2 - hardware info\n3 - cpu info"
-PS3='What do you wanna know?' 
-options=("1" "2" "3" "Quit")
+echo "Just enter the number"
+PS3='What do you wanna know? ' 
+options=("system info" "hardware info" "cpu info" "disk usage" "Quit")
 select opt in "${options[@]}"
 do
 	case $opt in
-		"1")
+		"system info")
 			echo "`uname -a`"
 			;;
 
-		"2")
+		"hardware info")
 			echo "`lshw -short`"
 			;;
 
-		"3"):
+		"cpu info"):
 			echo "`lscpu`"
+			;;
+		
+		"disk usage"):
+			echo "`df -H`"
 			;;
 
 		"Quit")
