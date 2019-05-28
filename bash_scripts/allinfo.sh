@@ -3,23 +3,23 @@
 
 echo "Just enter the number"
 PS3='What do you wanna know? ' 
-options=("system info" "hardware info" "cpu info" "disk usage" "Quit")
+options=("System info" "Hardware info" "CPU info" "Disk usage" "Quit")
 select opt in "${options[@]}"
 do
 	case $opt in
-		"system info")
+		"System info")
 			echo "`uname -a`"
 			;;
 
-		"hardware info")
+		"Hardware info")
 			echo "`lshw -short`"
 			;;
 
-		"cpu info"):
+		"CPU info"):
 			echo "`lscpu`"
 			;;
 		
-		"disk usage"):
+		"Disk usage"):
 			echo "`df -H`"
 			;;
 
@@ -27,9 +27,11 @@ do
 			break
 			;;
 	
-		*) echo "invalid option $REPLY";;
+		*) 
+		echo "Invalid option $REPLY";;	
 	esac
 done
+
 		
 
 
