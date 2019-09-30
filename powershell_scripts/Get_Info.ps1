@@ -1,4 +1,5 @@
 ﻿# Simple script to show some basic info about a system. For future developement, some things still need to be polished and improved.
+# To do - ogarnąć logi.
 
 function Show-Menu
 {
