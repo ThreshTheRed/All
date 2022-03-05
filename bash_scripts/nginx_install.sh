@@ -3,7 +3,10 @@
 #
 # This script will automatically install and do a basic set up of Nginx web server
 #
-
+# Plans:
+# - write function for centos installation
+# - write function for suse installation
+# 
 
 deb_base_inst () {
 	apt update && apt install nginx -y
