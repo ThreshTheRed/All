@@ -1,15 +1,25 @@
 #!/bin/bash
 
+# Variables
+
+ins_dir='/etc/wireguard_test'
+
 if [ "$EUID" -ne 0 ]
-	then printf "You have to run this command as a root\n"
+	then printf "You have to run this command as a root.\n"
 	exit
 else
-	printf "Installing wireguard"
+	printf "Installing wireguard server..."
 	apt install wireguard
-	mkdir -m 0700 /etc/wireguard_test/
+	mkdir -m 0700 $ins_dir/
 	umask 077
-	cd /etc/wiregaurd_test/	
-	#wg genkey | tee privatekey | wg pubkey > publickey
+	wg genkey | tee $ins_dir/priv.key
+	wg pubkey < $ins_dir/priv.key > $inst_dir/pub.key
+	touch $inst_dir/wg0_test.conf
+	#printf
+	#"[Interface]\n
+	#Address = public_ip\n
+	#ListenPort = 51194\n
+	#Privatekey = value_from_private_key"
 fi	
 
 
