@@ -1,25 +1,36 @@
 #!/bin/bash
-
 #
 # This script will automatically install and do a basic set up of Nginx web server
 #
 # Plans:
 # - write function for centos installation
 # - write function for suse installation
-# 
+# - check if it's installed
+
+# VARIABLES
+
+nginx=$(nginx -v 2>&1)
+
+if [ "$EUID" -ne 0 ]; then 
+		echo "This script requires a root permissions to run."
+	exit
+fi
 
 deb_base_inst () {
-	apt update && apt install nginx -y
-	echo "Checking if ufw is running."
-	if ufw status | grep inactive
-	then 
+	apt update
+	echo "Checking if ufw is running..."
+	if ufw status | grep inactive; then 
 		echo "ufw is not running. You may need to configure it later for better safety."
+		sleep 3
 	else
-	
-	# I allow the traffic at both 80 & 443 ports, but initially, 443 should be the only option for security
+		apt install nginx -y
+
+# I allow the traffic at both 80 & 443 ports, but initially, 443 should be the only option for security
+
 		ufw enable 80,443 proto tcp
 	fi
-	systemctl enable nginx && systemctl start nginx 	
+	systemctl enable nginx && systemctl start nginx
+	exit	
 }
 
 centos_base_inst () {
