@@ -8,23 +8,38 @@
 # - write function for suse installation
 # 
 
+if (( $EUID != 0 ))
+	then echo "This cript can only be run as root."
+	exit
+fi
+
 deb_base_inst () {
-	apt update && apt install nginx -y
-	echo "Checking if ufw is running."
-	if ufw status | grep inactive
-	then 
-		echo "ufw is not running. You may need to configure it later for better safety."
+	if apt list --installed | grep nginx >> /dev/null
+		then echo "Nginx is installed already. Skipping..."
+		exit
 	else
+		apt update && apt install nginx -y
+		echo "Checking if ufw is running."
+		if ufw status | grep inactive
+		then 
+			echo "ufw is not running. You may need to configure it later for better safety."
+		else
 	
 	# I allow the traffic at both 80 & 443 ports, but initially, 443 should be the only option for security
-		ufw enable 80,443 proto tcp
-	fi
-	systemctl enable nginx && systemctl start nginx 	
+			ufw enable 80,443 proto tcp
+		fi
+		systemctl enable nginx && systemctl start nginx
+	fi	
 }
 
-centos_base_inst () {
-	yum install epel-release && yum -y install nginx
-	echo "Checking if ufw is running."
+alma_base_inst () {
+	if yum list --installed | grep nginx >> /dev/null
+		echo "Nignx is installed already, skipping..."
+		exit
+	else
+		yum install epel-release && yum -y install nginx
+		echo "Checking if ufw is running."
+		systemctl status firewalld | grep inactive
 }
 
 suse_base_inst () {
@@ -39,18 +54,22 @@ select picked_os in "${OS[@]}"; do
 		"Ubuntu")
 			echo "You picked Ubuntu. Installation will start now."
 			deb_base_inst
+			exit
 			;;
 		"Debian")
 			echo "You picked Debian. Installation will start now."
 			deb_base_inst
+			exit
 			;;
-		"Centos")
+		"Alma")
 			echo "You picked CentOS. Installation will start now."
 			centos_base_inst
+			exit
 			;;
 		"SUSE")
 			echo "You picked OpenSUSE. Installation will start now."
 			suse_base_inst
+			exit
 			;;
 		"Quit")
 			echo "Stopping..."
