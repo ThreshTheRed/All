@@ -6,7 +6,7 @@
 # Plans:
 # - write function for centos installation
 # - write function for suse installation
-# 
+# - test test 
 
 if (( $EUID != 0 ))
 	then echo "This cript can only be run as root."
