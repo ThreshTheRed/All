@@ -12,3 +12,4 @@ $text = [Microsoft.VisualBasic.Interaction]::InputBox($desc, $title)
 
 $ObjClient.Description = $text
 $ObjClient.SetInfo()
+Exit
