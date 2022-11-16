@@ -1,2 +1,1 @@
-Repo with some random bash, python & powershell scripts.
-
+# Repo with scripts written in Bash, Powershell & Python.
