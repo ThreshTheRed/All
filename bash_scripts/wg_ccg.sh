@@ -1,12 +1,15 @@
 #!/bin/bash
 
 # This is the script to generate a simple wireguard config to access the server.
+# Things 2do
+# 1. Remodel creating .conf file, to not have it in one line.
+# 2. Do the same for key generation and pass each value as a variable.
 
 if (( $EUID != 0 ))
 	then printf "This cript can only be run as root..\n"
 	exit
 else
-	printf "Generating peer config.\n"
+	printf "Generating peer config. We need your input here:\n"
 	printf "Provide name of config:\n"
 	read conf_name \n
 	printf "Provide IP address of a peer:\n"
