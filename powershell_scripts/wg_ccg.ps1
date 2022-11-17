@@ -5,7 +5,7 @@ $srv_pubkey = Read-Host -Prompt 'Input public key of a server: '
 $srv_pubip = Read-Host -Prompt 'Input public IP address of a server: '
 New-Item -Path "." -Name "$full_cnf_name" -ItemType "file"
 
-$lines = @("# Client section","[Peer]","PublicKey = ","AllowedIPs = "," ","# Server section","[Peer]","PublicKey = ","AllowedIPs = ","Endpoint = $srv_pubip")
+$lines = @("# Client section","[Peer]","PrivateKey = ","AllowedIPs = $peer_ip"," ","# Server section","[Peer]","PublicKey = $srv_pubkey","AllowedIPs = ","Endpoint = $srv_pubip")
 
 foreach ($i in $lines) {
     Add-Content $full_cnf_name $i
